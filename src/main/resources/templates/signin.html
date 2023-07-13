@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="#" th:href="@{/css/loginstyle.css}" />
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+		<div class="login-back">
+			<div class="login-page">
+				<div class="form">
+
+					<form th:action="@{/dologin}" method="post">
+
+						<!-- message -->
+						<div class="alert text-center" role="alert"
+							style="font-weight: bold;" th:if="${session.msg}"
+							th:classappend="${session.msg.type}">
+							<span th:text="${session.msg.content}"></span>
+							<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+						</div>
+
+
+						<div class="red" th:if="${param.error}"
+							style="margin-bottom: 10px;">
+							<b>Invalid User & Password</b>
+						</div>
+
+						<div class="green" th:if="${param.logout}"
+							style="margin-bottom: 10px;">
+							<b>Logout Sussfully</b>
+						</div>
+
+						<input type="email" name="username" placeholder="User-Email" /> <input
+							type="password" name="password" placeholder="password" />
+
+
+						<button type="submit">
+							<span>login</span>
+						</button>
+
+
+						<p class="message">
+							Not registered? <a href="/signup">Create an account</a>
+						</p>
+
+
+						<p class="message">
+							<a th:href="@{/forgot}">Forgot password</a>
+						</p>
+
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

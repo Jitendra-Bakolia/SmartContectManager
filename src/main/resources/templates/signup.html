@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="card mt-2">
+						<div class="card-header bg_color">
+							<img style="position: absolute;"
+								src="https://img.icons8.com/external-wanicon-two-tone-wanicon/64/000000/external-registration-hospital-wanicon-two-tone-wanicon.png" />
+							<h3 style="padding-bottom: 8px; padding-top: 8px;"
+								class="text-center text-white">Register Smart-Contect
+								Manager</h3>
+
+						</div>
+						<div class="card-body">
+
+							<div th:if="${session.msg}" class="text-center"
+								th:classappend="${session.msg.type}" >
+								<h4 th:text="${session.msg.content}" style="height: 50px; margin: auto; margin-bottom: 0; padding-bottom: 0"></h4>
+								<div th:text="${#session.removeAttribute('msg')}"></div>
+							</div>
+
+							<form th:action="@{/register}"
+								method="post" th:object="${user}">
+
+								<div class="form-group">
+									<label for="usermane">User-Name</label> <input type="text"
+										class="form-control" id="usermane" name="name"
+										placeholder="Enter user-name" th:value="${user.name}"
+										required="required"
+										th:classappend="${#fields.hasErrors('name')} ? 'is-invalid':''">
+
+									<div class="invalid-feedback"
+										th:each="e : ${#fields.errors('name')}" th:text="${e}"></div>
+
+								</div>
+
+								<div class="form-group">
+									<label for="exampleInputEmail1">Email address</label> <input
+										type="email" class="form-control" id="exampleInputEmail1"
+										aria-describedby="emailHelp" placeholder="Enter email"
+										required="required" name="email" th:value="${user.email}"
+										th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
+									<small id="emailHelp" class="form-text text-muted">We'll
+										never share your email with anyone else.</small>
+
+									<div class="invalid-feedback"
+										th:each="e : ${#fields.errors('email')}" th:text="${e}"></div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="exampleInputPassword1">Create-Password</label> <input
+										type="text" class="form-control" id="exampleInputPassword1"
+										name="password" placeholder="Password" required="required"
+										th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''">
+
+									<div class="invalid-feedback"
+										th:each="e : ${#fields.errors('password')}" th:text="${e}"></div>
+
+								</div>
+
+								<div class="form-group">
+									<label for="exampleInputPassword1">Re-Enter Password</label> <input
+										type="password" class="form-control" name="rePassword"
+										id="exampleInputPassword1" placeholder="Re-Enter Password"
+										required="required"
+										th:classappend="${#fields.hasErrors('rePassword')} ? 'is-invalid' : ''">
+
+									<div class="invalid-feedback"
+										th:each="e : ${#fields.errors('rePassword')}" th:text="${e}"></div>
+								</div>
+
+
+								<div>
+									<label>About</label>
+									<textarea rows="5" cols="" class="form-control" name="about"
+										th:text="${user.about}"></textarea>
+								</div>
+
+
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input"
+										id="exampleCheck1" name="check"> <label
+										class="form-check-label" for="exampleCheck1">Check me
+										out</label>
+								</div>
+
+
+								<div class="text-center">
+									<button type="submit" class="btn btn-outline-info">Submit</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

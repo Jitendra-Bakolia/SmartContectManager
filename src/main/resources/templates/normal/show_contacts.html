@@ -1,0 +1,128 @@
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+	integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<div class="card mr-4 ml-4">
+			<div class="card-body">
+
+				<!-- message system -->
+				<div class="alert text-center" role="alert"
+					style="font-weight: bold;" th:if="${session.msg}"
+					th:classappend="${session.msg.type}">
+					<span th:text="${session.msg.content}"></span>
+					<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+				</div>
+
+
+				<h1 class="text-center">Your Contact</h1>
+
+
+				<!-- SEARCH SYATEM -->
+
+				<div class="search-container my-3">
+
+					<input onkeyup="search()" id="search-input" type="text"
+						class="form-control" placeholder="Search your contact's" />
+
+					<div class="search-result">
+
+						<!-- result goes here.... -->
+
+					</div>
+
+				</div>
+
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">C-Id</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Phone No.</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c : ${contacts}">
+								<th scope="row" th:text="${'SCM-'+c.cId}">1</th>
+								<td><img class="my_profile_image" src=""
+									th:src="@{'/image/'+${c.image}}" alt="profile image" /><span
+									th:text="${c.name}"></span></td>
+								<td th:text="${c.email}"></td>
+								<td th:text="${c.phone}"></td>
+								<td><a class="btn btn-sm" href="#"
+									th:href="@{'/user/'+${c.cId}+'/contact/'}"><i
+										class="fas fa-eye" style="color: green;"></i> </a> <a
+									class="btn btn-sm" href="#"
+									th:href="@{'/user/update-contcat/'+${c.cId}}"> <i
+										class="fas fa-pen-nib" style="color: #1e88e5"></i>
+								</a> <a class="btn btn-sm" href="#"
+									th:onclick="|deleteContact(${c.cId},${currentPage})|"> <i
+										class="fas fa-trash-alt" style="color: red"></i>
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- pagination system -->
+
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+
+
+						<li th:if="${currentPage != 0}" class="page-item"><a
+							class="page-link"
+							th:href="@{'/user/show-contacts/'+${currentPage-1}}" href="#"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								<span class="sr-only">Previous</span>
+						</a></li>
+
+
+						<li th:each="p : ${#numbers.sequence(1,totalPages)}"
+							th:classappend="${currentPage==p-1?'active':''}"
+							class="page-item"><a class="page-link" href="#"
+							th:href="@{'/user/show-contacts/'+${p-1}}"><span
+								th:text="${p}"></span></a></li>
+
+
+						<li th:if="${currentPage+1 != totalPages}" class="page-item"><a
+							class="page-link"
+							th:href="@{'/user/show-contacts/'+${currentPage+1}}" href="#"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+								class="sr-only">Next</span>
+						</a></li>
+
+
+					</ul>
+				</nav>
+
+				<!-- pagination end here -->
+
+			</div>
+		</div>
+		
+		<script>
+
+			$(document).ready(() => {
+				$('.item').removeClass('clicked');
+				$('#contact-link').addClass('clicked');
+			});
+
+		</script>
+
+	</section>
+</body>
+</html>

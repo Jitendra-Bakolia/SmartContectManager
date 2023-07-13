@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+		<div class="card mr-4 ml-4">
+			<div class="card-body">
+
+				<div class="alert text-center" role="alert"
+					style="font-weight: bold;" th:if="${session.msg}"
+					th:classappend="${session.msg.type}">
+					<span th:text="${session.msg.content}"></span>
+					<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+				</div>
+
+				<div class="container text-center">
+
+					<form action="" th:action="@{/user/updateImage}" method="post"
+						enctype="multipart/form-data">
+
+						<img style="height: 200px; width: 200px; border-radius: 50%"
+							src="" th:src="@{'/image/'+${loginuser.imageUrl}}"
+							alt="profilepic" /> <input class="ml-3" type="file"
+							name="profileImage" /><br>
+						<h3 class="text-secondary">Update Your Profile Image</h3>
+						<button type="submit" class="btn btn-outline-info btn-sm mt-3">Update
+							Image</button>
+					</form>
+				</div>
+
+				<div class="mt-3">
+					<table class="table">
+						<tbody>
+
+
+							<tr>
+								<td><form action="" th:action="@{/user/updatePassword}" method="post">
+										<button class="btn btn-outline-secondary btn-block">Update
+											Password</button>
+									</form></td>
+							</tr>
+
+
+							<tr>
+								<td><form action="" th:action="@{/user/updateBio}" method="post">
+										<button class="btn btn-outline-secondary btn-block">Update
+											Bio</button>
+									</form></td>
+							</tr>
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+
+			$(document).ready(() => {
+				$('.item').removeClass('clicked');
+				$('#setting-link').addClass('clicked');
+			});
+
+		</script>
+		
+	</section>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="layout(content)">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}">Document</title>
+
+<!-- css style seet -->
+<!-- Bootstrap css -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+	integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Self css -->
+<link rel="stylesheet" href="" th:href="@{/css/style.css}" />
+
+<!-- java script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
+</head>
+<body style="background-color: #e2e2e2;">
+
+
+
+	<!-- This is nav bar here -->
+
+	<nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-info">
+		<a class="navbar-brand" href="#"><i><b>SMART-ContectManager</b></i></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+			<ul class="navbar-nav ml-auto text-uppercase">
+
+
+				<li class="nav-item active"><a class="nav-link" href="/">HOME
+						<span class="sr-only">(current)</span>
+				</a></li>
+
+				<li class="nav-item active"><a class="nav-link" href="#"
+					th:text="${user.name}"> <span class="sr-only">(current)</span>
+				</a></li>
+
+				<li class="nav-item active"><a class="nav-link"
+					th:herf="@{/logout/}" href="/logout">LOGOUT <span
+						class="sr-only">(current)</span>
+				</a></li>
+
+			</ul>
+
+		</div>
+	</nav>
+
+	<!-- End nav bar -->
+
+
+
+
+	<!-- CONTENT CODE HERE -->
+
+	<!-- This is side bar -->
+	<div class="sidebar mt-1">
+		<span onclick="toggleSidebar()" class="crossBtn">&times;</span> <a
+			id="home-link" href="#" th:href="@{/user/dashbord}" class="item"><i
+			class="fas fa-home"></i>Home</a> <a id="contact-link" href="#"
+			th:href="@{/user/show-contacts/0}" class="item"><i
+			class="fas fa-address-book"></i>ViewContects</a> <a id="add-link"
+			href="#" th:href="@{/user/add-contact}" class="item"><i
+			class="fas fa-pencil-alt"></i>Add Contect</a> <a href="#"
+			id="profile-link" th:href="@{/user/profile}" class="item"><i
+			class="fas fa-user-circle"></i>Profile</a> <a href="#" id="setting-link"
+			th:href="@{/user/setting}" class="item"><i class="fas fa-cogs"></i>Setting</a>
+
+		<a href="#" th:href="@{/logout}" class="item"><i
+			class="fas fa-sign-out-alt"></i>Logout</a>
+
+		<div class="divider"></div>
+
+	</div>
+	<!-- End of side bar -->
+
+	<div class="content mt-5">
+		<i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
+		<div th:replace="${content}"></div>
+	</div>
+
+	<!-- CONTENT CODE END HERE -->
+
+
+
+	<!-- javascript -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script>
+	
+	function deleteContact(cId,currentPage){
+		swal({
+			  title: "Are you sure?",
+			  text: "You want to delete this contact...?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+
+				window.location="/user/delete-contact/"+cId+"/"+currentPage;
+				  
+			  } else {
+			    swal("Your contact is safe");
+			  }
+			});
+	}
+	
+	</script>
+
+
+	<!-- Sweet alert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<!-- payment script -->
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<!-- self javascript here -->
+	<script src="" th:src="@{/js/script.js}"></script>
+
+
+</body>
+</html>

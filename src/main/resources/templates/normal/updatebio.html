@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<div class="card mr-4 ml-4">
+			<div class="card-body">
+
+				<h1 class="text-secondary text-center mb-4"
+					style="letter-spacing: 2px;">
+					<u>Update Your Bio.</u>
+				</h1>
+
+				<form th:action="@{/user/doUpdateBio}" method="post"
+					th:object="${user}">
+
+					<div class="alert text-center" role="alert"
+						style="font-weight: bold;" th:if="${session.msg}"
+						th:classappend="${session.msg.type}">
+						<span th:text="${session.msg.content}"></span>
+						<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+					</div>
+
+					<table class="table">
+						<tbody>
+							<tr>
+								<th scope="row">Name</th>
+								<td>:</td>
+								<td><input type="text" class="form-control" name="name"
+									th:value="${user.name}"></td>
+							</tr>
+							<tr>
+								<th scope="row">Email-Id</th>
+								<td>:</td>
+								<td><input type="email" class="form-control" name="email"
+									th:value="${user.email}"
+									th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"><small
+									class="text-secondary">Your Email-Id is your User-Name
+										so be carefully..</small>
+
+									<div class="invalid-feedback"
+										th:each="e : ${#fields.errors('email')}" th:text="${e}"></div>
+
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">About</th>
+								<td>:</td>
+								<td><textarea rows="5" cols="5" class="form-control"
+										name="about" th:text="${user.about}"></textarea></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="text-center">
+						<button class="btn btn-outline-info" type="button"
+							data-toggle="modal" data-target="#passwordChangeModel">Update
+							Bio</button>
+					</div>
+
+
+					<!-- Model for get password .. -->
+
+					<div class="modal fade" id="passwordChangeModel" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalCenterTitle"
+						aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header bg-info text-white">
+									<h4 class="modal-title" for="exampleInputPassword1"
+										id="exampleModalLongTitle" style="margin-left: 180px;">Password</h4>
+									<button type="button" class="close" style="color: red;"
+										data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+
+									<div class="container text-center">
+										<input type="password" class="form-control" name="password"
+											id="exampleInputPassword1" placeholder="Password"> <small
+											class="text-secondary">Before change your BIO please
+											enter your password here..</small>
+
+										<div class="container text-center mt-4">
+											<button type="submit" class="btn btn-outline-info ">Update
+												Bio</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+		
+		<script>
+
+			$(document).ready(() => {
+				$('.item').removeClass('clicked');
+				$('#setting-link').addClass('clicked');
+			});
+
+		</script>
+
+	</section>
+</body>
+</html>

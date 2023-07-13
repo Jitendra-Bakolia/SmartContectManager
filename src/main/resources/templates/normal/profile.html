@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<div class="card mr-4 ml-4">
+			<div class="card-body">
+
+				<div class="container text-center">
+					<img style="height: 200px; width: 200px; border-radius: 50%" src=""
+						th:src="@{'/image/'+${user.imageUrl}}" alt="" />
+
+					<h3 class="mt-3" th:text="${user.name}"></h3>
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Details</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">User - Id</th>
+								<td><span th:text="${user.id}"></span></td>
+
+							</tr>
+							<tr>
+								<th scope="row">Email - Id</th>
+								<td><span th:text="${user.email}" style="color: blue"></span></td>
+
+							</tr>
+							<tr>
+								<th scope="row">User - Role</th>
+								<td><span th:text="${user.role}"></span></td>
+
+							</tr>
+							<tr>
+								<th scope="row">About</th>
+								<td><span th:text="${user.about}"></span></td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+		
+		<script>
+
+			$(document).ready(() => {
+				$('.item').removeClass('clicked');
+				$('#profile-link').addClass('clicked');
+			});
+
+		</script>
+
+	</section>
+</body>
+</html>
